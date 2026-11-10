@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub Agentic Workflows là gì? Tóm tắt cho người mới — Kiến AI</title>
+  <meta name="description" content="Tóm tắt tài liệu chính thức của GitHub về Agentic Workflows: khác gì Actions thông thường, cần gì để chạy, bảo mật và chi phí.">
+  <link rel="canonical" href="https://kienaistudio.github.io/posts/github-agentic-workflows-la-gi.html">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="vi_VN">
+  <meta property="og:site_name" content="Kiến AI">
+  <meta property="og:title" content="GitHub Agentic Workflows là gì? Tóm tắt cho người mới — Kiến AI">
+  <meta property="og:description" content="Tóm tắt tài liệu chính thức của GitHub về Agentic Workflows: khác gì Actions thông thường, cần gì để chạy, bảo mật và chi phí.">
+  <meta property="og:url" content="https://kienaistudio.github.io/posts/github-agentic-workflows-la-gi.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="GitHub Agentic Workflows là gì? Tóm tắt cho người mới — Kiến AI">
+  <meta name="twitter:description" content="Tóm tắt tài liệu chính thức của GitHub về Agentic Workflows: khác gì Actions thông thường, cần gì để chạy, bảo mật và chi phí.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <a class="skip" href="#noi-dung">Bỏ qua phần điều hướng</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <span aria-hidden="true">🐜</span>
+        Kiến AI
+      </a>
+      <nav aria-label="Chính">
+        <ul>
+          <li><a href="/">Trang chủ</a></li>
+          <li><a href="/#bai-viet" aria-current="page">Bài viết</a></li>
+          <li><a href="/about.html">Về chúng tôi</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="noi-dung">
+    <div class="wrap">
+      <article class="article">
+        <header>
+          <p class="meta"><time datetime="2026-11-10">10 tháng 11, 2026</time> · Tóm tắt tài liệu chính thức · Không phải bài trải nghiệm thực tế</p>
+          <h1>GitHub Agentic Workflows là gì? Tóm tắt cho người mới</h1>
+        </header>
+
+        <div class="disclosure-box">
+          <p>Bài này <strong>không chứa liên kết affiliate</strong>. Nội dung chỉ tóm tắt tài liệu và blog chính thức của GitHub; Kiến AI chưa tự cài hay chạy GitHub Agentic Workflows, nên không đưa kết quả đo hay trải nghiệm riêng.</p>
+        </div>
+
+        <p>GitHub Agentic Workflows là cách tự động hóa công việc trên kho mã bằng hướng dẫn viết bằng ngôn ngữ tự nhiên, rồi để một coding agent chạy trong GitHub Actions. Khác với workflow Actions thông thường vốn đi theo bước if-then cố định, agentic workflow dùng agent để đọc ngữ cảnh, đánh giá và đề xuất hành động — trong phạm vi bạn đã khóa sẵn ở phần cấu hình.</p>
+        <p>Bài này tóm tắt những gì GitHub mô tả trong tài liệu chính thức và bài blog giới thiệu, để người mới hình dung trước khi đọc hướng dẫn gốc.</p>
+
+        <h2>Khác gì so với GitHub Actions thông thường?</h2>
+        <p>Theo tài liệu khái niệm của GitHub, workflow truyền thống thực thi các bước đã định sẵn. Agentic workflow vẫn chạy trên GitHub Actions, nhưng phần việc chính là một AI agent làm theo chỉ dẫn Markdown, có lý luận theo ngữ cảnh.</p>
+        <p>GitHub nhấn mạnh đây là phần bổ sung cho CI/CD, không phải bản thay thế. Việc build, test, lint hay deploy vốn cần kết quả lặp lại được thì vẫn nên để workflow YAML thông thường. Agentic workflow hợp hơn với việc cần suy luận: phân loại issue, xem vì sao CI lỗi, viết báo cáo kho, hoặc đề xuất cập nhật tài liệu.</p>
+
+        <h2>Cấu trúc một workflow</h2>
+        <p>Mỗi file Markdown gồm hai phần, như GitHub mô tả:</p>
+        <ul>
+          <li><strong>Frontmatter YAML</strong> (giữa hai dấu <span class="code">---</span>): khi nào chạy (<span class="code">on</span>), quyền (<span class="code">permissions</span>), engine AI, và các thao tác ghi được phép (<span class="code">safe-outputs</span>).</li>
+          <li><strong>Phần thân Markdown</strong>: chỉ dẫn bằng lời mà agent phải làm theo khi workflow chạy.</li>
+        </ul>
+        <p>Quy trình tổng quát mà GitHub nêu gồm: viết file <span class="code">.md</span>, biên dịch thành file GitHub Actions <span class="code">.lock.yml</span>, commit cả hai file lên nhánh mặc định, rồi chạy như một workflow Actions — theo sự kiện, trên giao diện, hoặc bằng GitHub CLI.</p>
+        <p>Engine mặc định là GitHub Copilot. Tài liệu cũng liệt kê Anthropic Claude, OpenAI Codex và Google Gemini. Mỗi engine cần bí mật xác thực riêng trong repository; Copilot cần gói Copilot nếu bạn chọn engine này.</p>
+
+        <h2>Cần gì để bắt đầu, theo GitHub</h2>
+        <p>Tài liệu chính thức nêu các điều kiện sau:</p>
+        <ul>
+          <li>GitHub Actions đã bật cho repository.</li>
+          <li>Một tài khoản engine AI được hỗ trợ (Copilot, Claude, Codex hoặc Gemini).</li>
+          <li>GitHub CLI đã cài và đã đăng nhập. Hướng dẫn bắt đầu nhanh ghi cần <span class="code">gh</span> phiên bản 2.0.0 trở lên, và xác thực với quyền <span class="code">repo,workflow</span>.</li>
+        </ul>
+        <p>Hướng dẫn bắt đầu nhanh của GitHub dùng tiện ích CLI <span class="code">gh-aw</span>:</p>
+        <pre><code>gh extension install github/gh-aw</code></pre>
+        <p>Sau đó, GitHub hướng dẫn thêm một workflow mẫu “báo cáo trạng thái kho mỗi ngày” bằng <span class="code">gh aw add-wizard githubnext/agentics/daily-repo-status</span>. Wizard giúp chọn engine, cấu hình bí mật, tạo file Markdown cùng file <span class="code">.lock.yml</span>, rồi mở pull request. GitHub viết rằng quy trình này mất khoảng 10 phút, và một lần chạy mẫu thường mất 2–3 phút — đây là số liệu do GitHub nêu, không phải kết quả đo của Kiến AI.</p>
+        <p>Khi sửa phần frontmatter, GitHub yêu cầu biên dịch lại bằng <span class="code">gh aw compile</span>. Có thể chạy thủ công bằng <span class="code">gh aw run TÊN-WORKFLOW</span>.</p>
+
+        <h2>Ví dụ việc GitHub nói là phù hợp</h2>
+        <p>Các ví dụ dưới đây lấy từ tài liệu và blog chính thức của GitHub, không phải việc chúng tôi đã làm:</p>
+        <ul>
+          <li>Phân loại, gắn nhãn issue mới.</li>
+          <li>Điều tra lỗi CI và đề xuất hướng sửa.</li>
+          <li>Tạo báo cáo hoạt động kho theo ngày hoặc tuần.</li>
+          <li>Giữ tài liệu khớp với thay đổi mã.</li>
+          <li>Đề xuất cải thiện độ phủ kiểm thử.</li>
+        </ul>
+
+        <h2>Bảo mật: những hàng rào GitHub mô tả</h2>
+        <p>GitHub nêu một số nguyên tắc thiết kế:</p>
+        <ul>
+          <li><strong>Mặc định chỉ đọc.</strong> Workflow không có quyền ghi lên repository trừ khi bạn cấp thêm.</li>
+          <li><strong>Safe outputs.</strong> Các thao tác ghi như tạo issue, bình luận hay mở pull request chỉ được phép khi đã khai báo trong <span class="code">safe-outputs</span> và được kiểm tra.</li>
+          <li><strong>Bí mật không nằm trong môi trường agent.</strong> Thông tin nhạy cảm được giữ ở job riêng phía sau, không đưa trực tiếp cho agent.</li>
+          <li><strong>Phát hiện mối đe dọa và chạy trong môi trường cách ly.</strong> Đầu ra đề xuất được quét trước khi ghi; agent chạy trong môi trường GitHub Actions bị cô lập / có tường lửa.</li>
+          <li><strong>Người vẫn duyệt.</strong> Blog của GitHub (tháng 2 năm 2026) viết rằng pull request không được tự hợp nhất; người vẫn phải xem và duyệt.</li>
+        </ul>
+        <p class="note">Hàng rào do hãng thiết kế không có nghĩa mọi cấu hình đều an toàn. Quyền, bí mật và <span class="code">safe-outputs</span> vẫn cần được xem lại trước khi bật trên kho thật.</p>
+
+        <h2>Chi phí, theo tài liệu hiện tại</h2>
+        <p>Tài liệu GitHub tách chi phí thành hai phần: phút GitHub Actions mà job tiêu thụ, và chi phí suy luận (inference) của engine AI. GitHub dùng đơn vị AI Credits (AIC) để theo dõi; tài liệu ghi <strong>1 AIC = 0,01 USD</strong>.</p>
+        <ul>
+          <li>Engine Copilot mặc định: mức dùng AIC gắn với AI credits trong thanh toán GitHub Copilot.</li>
+          <li>Engine bên thứ ba: phần suy luận do nhà cung cấp đó tính.</li>
+        </ul>
+        <p>Có thể xem ước tính qua <span class="code">gh aw logs</span> và <span class="code">gh aw audit RUN-ID</span>. GitHub nói số AIC chỉ là ước tính, có thể không khớp hóa đơn cuối. Có thể đặt <span class="code">max-ai-credits</span> trong frontmatter; mức trần mặc định theo tài liệu là <strong>1.000 AIC mỗi lần chạy</strong>.</p>
+        <p>Mức giá gói Copilot, quota Actions và cách tính AIC có thể đổi. Hãy đối chiếu lại trang thanh toán và tài liệu gốc trước khi dùng cho việc quan trọng.</p>
+
+        <h2>So sánh ngắn (chỉ theo tài liệu GitHub)</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Tiêu chí</th>
+              <th>Theo tài liệu GitHub</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cách viết</td>
+              <td>Markdown + YAML frontmatter, biên dịch ra <span class="code">.lock.yml</span></td>
+            </tr>
+            <tr>
+              <td>Nơi chạy</td>
+              <td>GitHub Actions</td>
+            </tr>
+            <tr>
+              <td>Engine</td>
+              <td>Copilot (mặc định), Claude, Codex, Gemini</td>
+            </tr>
+            <tr>
+              <td>Quyền mặc định</td>
+              <td>Chỉ đọc; ghi qua <span class="code">safe-outputs</span></td>
+            </tr>
+            <tr>
+              <td>Thay CI/CD?</td>
+              <td>Không. Dùng kèm, không thay pipeline build/test/deploy</td>
+            </tr>
+            <tr>
+              <td>Chi phí</td>
+              <td>Phút Actions + suy luận AI (AIC; 1 AIC = 0,01 USD)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Ai nên tìm hiểu tiếp — và ai có thể chưa cần</h2>
+        <p><strong>Nên đọc tiếp tài liệu gốc</strong> nếu bạn đã dùng GitHub Actions, muốn tự động hóa việc lặp lại trên repository (phân loại issue, báo cáo, điều tra CI) và chấp nhận có chi phí suy luận cũng như phải tự cấu hình engine cùng bí mật.</p>
+        <p><strong>Có thể chưa cần vội</strong> nếu bạn chỉ cần chạy test/build xác định, chưa bật Actions, hoặc chưa sẵn sàng giao cho agent tạo issue hay pull request — dù chỉ trong phạm vi đã khai báo.</p>
+
+        <h2>Kết luận</h2>
+        <p>GitHub Agentic Workflows là lớp tự động hóa bằng ngôn ngữ tự nhiên chạy trên GitHub Actions, có hàng rào mặc định chỉ đọc và cơ chế safe outputs. Đây không phải bản thay CI, cũng không phải công cụ “cài một lần là xong miễn phí”. Nếu muốn thử, hãy bắt đầu từ hướng dẫn chính thức và tự kiểm tra chi phí trên tài khoản của bạn. Kiến AI sẽ cập nhật bài này nếu sau này tự chạy thử và có quan sát riêng.</p>
+
+        <h2>Nguồn</h2>
+        <div class="sources">
+          <ol>
+            <li><a href="https://docs.github.com/en/copilot/concepts/agent-capabilities/agent-powered-workflows-and-operations/about-github-agentic-workflows">GitHub Docs — GitHub Agentic Workflows (khái niệm, yêu cầu, bảo mật, thanh toán)</a></li>
+            <li><a href="https://docs.github.com/en/copilot/how-tos/github-agentic-workflows">GitHub Docs — mục hướng dẫn Agentic Workflows</a></li>
+            <li><a href="https://docs.github.com/en/copilot/how-tos/github-agentic-workflows/quickstart">GitHub Docs — Your first agentic workflow</a> (CLI <span class="code">gh-aw</span>, wizard, thời gian GitHub nêu)</li>
+            <li><a href="https://docs.github.com/en/copilot/how-tos/github-agentic-workflows/creating-github-agentic-workflows">GitHub Docs — Creating GitHub Agentic Workflows</a> (cấu trúc file, frontmatter, <span class="code">gh aw compile</span>)</li>
+            <li><a href="https://github.blog/ai-and-ml/automate-repository-tasks-with-github-agentic-workflows/">GitHub Blog — Automate repository tasks with GitHub Agentic Workflows</a> (13 tháng 2, 2026; Don Syme &amp; Peli de Halleux; lúc công bố được gọi là technical preview; nói PR không tự merge)</li>
+            <li><a href="https://github.com/github/gh-aw">github/gh-aw</a> — tiện ích GitHub CLI chính thức cho Agentic Workflows</li>
+          </ol>
+          <p class="muted small">Đã đối chiếu các trang trên vào 10 tháng 11, 2026 (giờ Việt Nam, UTC+7). Chi tiết sản phẩm và giá có thể đã thay đổi sau ngày này.</p>
+        </div>
+      </article>
+
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>© 2026 Kiến AI. Review độc lập, viết cho người Việt.</p>
+      <nav aria-label="Chân trang">
+        <a href="/disclosure.html">Công bố liên kết</a>
+        <a href="/privacy.html">Bảo mật</a>
+        <a href="https://www.tiktok.com/@kien.ai.studio">TikTok</a>
+        <a href="https://github.com/kienaistudio">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
